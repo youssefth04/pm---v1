@@ -2,6 +2,7 @@ package com.ysf.pm.web;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
+@CrossOrigin("*")
 public class TaskRestController {
 	
 	private final TaskService taskService;
@@ -60,6 +62,16 @@ public class TaskRestController {
 		
 		return taskService.findAllByids(ids);
 	}
+	@GetMapping("/tasks/alltasksbyuserid/{userId}")
+	public List<TaskDto> findAllTasksByUserId(@PathVariable String userId){
+		return taskService.findAllTasksByUserId(userId);
+	}
 	
 
+	@GetMapping("/tasks/alltasksbyprojectid/{projectId}")
+	public List<TaskDto> findAllTasksByProjectId(@PathVariable String projectId){
+		return taskService.findTasksByProjectId(projectId);
+	}
+	
+	
 }

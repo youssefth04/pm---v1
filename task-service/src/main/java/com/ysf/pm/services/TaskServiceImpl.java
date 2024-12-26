@@ -127,6 +127,22 @@ public class TaskServiceImpl implements TaskService {
 		});
 		return tasks;
 	}
+	@Override
+	public List<TaskDto> findAllTasksByUserId(String userId) {
+	
+		return taskRepository.findAllByUserId(userId).stream().map(taskMapper::toDto).collect(Collectors.toList());
+	
+	}
+	@Override
+	public List<TaskDto> findTasksByProjectId(String projectId) {
+		List<TaskDto> tasks = taskRepository.findByProjectId(projectId).stream().map(taskMapper::toDto).collect(Collectors.toList());
+		
+		tasks.forEach(t->{
+			UserEntity userEntity= userRestClient.findUserById(t.getUserId());
+			t.setUserEntity(userEntity);
+		});
+		return tasks;
+	}
 	
 
 	

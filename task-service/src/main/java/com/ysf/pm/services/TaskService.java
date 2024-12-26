@@ -27,6 +27,10 @@ public interface TaskService {
 
 	List<TaskDto> findAllByids(List<Long> ids);
 	
+	List<TaskDto> findAllTasksByUserId(String userId);
+	
+	List<TaskDto> findTasksByProjectId(String projectId);
+	
 	
 
 }

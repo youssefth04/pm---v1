@@ -23,7 +23,6 @@ public class UserServiceApplication {
 	@Bean
 	CommandLineRunner commandLineRunner(UserRepository userRepository ) {
 		return arg->{
-			
 			Stream.of("said","amine","sami").forEach(u->{
 				UserEntity userEntity= new UserEntity();
 				userEntity.setEmail(u+"@gmail.com");

@@ -26,4 +26,7 @@ public interface ProjectService {
 	ProjectDto addTeamMember(String projectId,UserEntity userEntity) throws ProjectNotFoundException;
 	
 	ProjectDto removeTeamMember(String projectId,String userId) throws ProjectNotFoundException;
+	
+	List<ProjectDto> findAllProjectsByUserId(String userId);
+	
 }

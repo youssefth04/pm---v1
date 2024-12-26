@@ -9,6 +9,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import com.ysf.pm.models.TaskEntity;
 import com.ysf.pm.models.UserEntity;
 
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Transient;
@@ -26,6 +27,7 @@ public class ProjectEntity {
 	@LastModifiedDate
 	private Date endDate;
 	
+	@ElementCollection
 	private List<String> userIds;
 	
 	private List<Long> taskIds;

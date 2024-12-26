@@ -1,6 +1,5 @@
 package com.ysf.pm.services;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -154,6 +153,27 @@ public class ProjectServiceImpl implements ProjectService{
 		projectDto.setListOfUsers(users);
 		projectRepository.save(projectMapper.toEntity(projectDto));
 		return projectDto;
+	}
+	@Override
+	public List<ProjectDto> findAllProjectsByUserId(String userId) {
+		
+		List<ProjectDto> listOfProjects = projectRepository.findAllByUserId(userId).stream().map(projectMapper::toDto).collect(Collectors.toList());
+		listOfProjects.forEach(p->{
+			List<String> usersIds = p.getUserIds();
+			List<Long> tasksIds = p.getTaskIds();
+			
+			if(usersIds!=null) {
+				List<UserEntity>users = userRestClient.findAllByids(usersIds);
+				p.setListOfUsers(users);
+				
+			}
+			if(tasksIds!=null) {
+				List<TaskEntity>tasks = taskRestClient.findAllByids(tasksIds);
+				p.setListOfTasks(tasks);
+			}
+		});
+		return listOfProjects;
+		
 	}
 	
 }
