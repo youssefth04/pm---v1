@@ -28,10 +28,10 @@ public class ProjectServiceApplication {
 	}
 	
 	@Bean
-	CommandLineRunner commandLineRunner(ProjectService projectService , UserRestClient userRestClient ,TaskRestClient taskRestClient) {
+	CommandLineRunner commandLineRunner(ProjectService projectService ) {
 		
-		List<UserEntity> users = userRestClient.findAllUsers();
-		List<TaskEntity> tasks = taskRestClient.findAllTask();
+		//List<UserEntity> users = userRestClient.findAllUsers();
+		//List<TaskEntity> tasks = taskRestClient.findAllTask();
 		
 		return args->{
 			Stream.of("project1","project2","project3","project4").forEach(p->{
@@ -40,33 +40,7 @@ public class ProjectServiceApplication {
 				projectDto.setStartDate(new Date());
 				projectDto.setEndDate(new Date());
 				projectDto.setId(UUID.randomUUID().toString());
-				projectDto.setName(p);
-				projectDto.setListOfTasks(tasks);
-				projectDto.setListOfUsers(users);
-				users.forEach(u->{
-					String userId = u.getId();
-					List<String> listUserIds = projectDto.getUserIds();
-					if(listUserIds==null) {
-						listUserIds=new ArrayList<>();
-						listUserIds.add(userId);
-						projectDto.setUserIds(listUserIds);
-					}
-					listUserIds.add(userId);
-					projectDto.setUserIds(listUserIds);
-					
-				});
-				tasks.forEach(t->{
-					Long tasksIds = t.getId();
-					List<Long> listTaskIds=projectDto.getTaskIds();
-					if(listTaskIds==null) {
-						listTaskIds= new ArrayList<>();
-						listTaskIds.add(tasksIds);
-						projectDto.setTaskIds(listTaskIds);
-					}
-					listTaskIds.add(tasksIds);
-					projectDto.setTaskIds(listTaskIds);
-				});
-				
+				projectDto.setName(p);	
 				
 				projectService.save(projectDto);
 			});

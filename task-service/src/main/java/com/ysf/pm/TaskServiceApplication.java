@@ -24,23 +24,18 @@ public class TaskServiceApplication {
 		SpringApplication.run(TaskServiceApplication.class, args);
 	}
 	@Bean
-	CommandLineRunner commandLineRunner(TaskService taskService , UserRestClient userRestClient , TaskMapper taskMapper) {
+	CommandLineRunner commandLineRunner(TaskService taskService  , TaskMapper taskMapper) {
 		return args->{
 			 
-			 List<UserEntity> users = userRestClient.findAllUsers();
-			 users.forEach(u->{
+			// List<UserEntity> users = userRestClient.findAllUsers();
 				 Stream.of("task1","task2","task3").forEach(t->{
 						TaskDto taskDto= new TaskDto();
 						taskDto.setDescription(t+" blalablab");
 						taskDto.setTaskStatus(TaskStatus.IN_PROGRESS);
 						taskDto.setTitle(t);
-						taskDto.setUserId(u.getId());
 						taskService.save(taskDto);
 					});
 				 
-			 });
-			
-			
 		};
 	}
 

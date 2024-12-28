@@ -22,19 +22,17 @@ public class NotificationServiceApplication {
 		SpringApplication.run(NotificationServiceApplication.class, args);
 	}
 	@Bean
-	CommandLineRunner commandLineRunner(NotificationService notificationService,UserRestClient userRestClient) {
+	CommandLineRunner commandLineRunner(NotificationService notificationService) {
 		return args->{
-			List<UserEntity> users = userRestClient.findAll();
+			//List<UserEntity> users = userRestClient.findAll();
 			
-			users.forEach(u->{
+		
 				Stream.of("notification 1"," notif 2"," notif 3").forEach(n->{
 					NotificationDto notificationDto = new  NotificationDto();
 					notificationDto.setMessage(n);
-					notificationDto.setUserEntity(u);
-					notificationDto.setUserId(u.getId());
 					notificationService.save(notificationDto);
 				});
-			});
+		
 			
 		};
 	}

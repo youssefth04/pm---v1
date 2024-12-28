@@ -30,6 +30,7 @@ public class SecurityConfig {
 				.cors(Customizer.withDefaults())
 				.sessionManagement(sm->sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.csrf(csrf->csrf.disable())
+				.authorizeHttpRequests(ar->ar.requestMatchers("/actuator/**").permitAll())
 				.authorizeHttpRequests(ar->ar.anyRequest().authenticated())
 				.oauth2ResourceServer(o2->o2.jwt(jwt->jwt.jwtAuthenticationConverter(jwtAuthConverter)))
 				.build();
